@@ -3,6 +3,7 @@ import { Client, Intents } from 'discord.js';
 import cron from 'node-cron';
 import { Logger } from 'tslog';
 import logger from './logger';
+import {ensureStringMaxLength} from './utility';
 
 export type BotTreatment = 'ignore' | 'separate' | 'subtract-slots' | 'include'
 
@@ -94,10 +95,11 @@ class StatusBot {
             this.logger.debug('Activity name is unchanged, no update required');
         }
 
-        if (name != this.client.user?.username && this.updateUsername) {
+        const username = ensureStringMaxLength(name, 32);
+        if (username != this.client.user?.username && this.updateUsername) {
             this.logger.debug('Updating username to match server name');
             try {
-                await this.client.user?.setUsername(name);
+                await this.client.user?.setUsername(username);
             }
             catch (e: any) {
                 this.logger.error('Failed to update username', e.message);
