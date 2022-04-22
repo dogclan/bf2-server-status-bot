@@ -128,8 +128,8 @@ class StatusBot {
             this.logger.debug('Username matches server name, no update required');
         }
         
-        const mapImgSlug = 'map_' + mapName.toLowerCase().replace(/ /g, '_');
-        const mapImgUrl = `https://www.bf2hub.com/home/images/favorite/${mapImgSlug}.jpg`;
+        const mapImgSlug = mapName.toLowerCase().replace(/ /g, '_');
+        const mapImgUrl = `https://cdn.gametools.network/maps/bf2/${mapImgSlug}.jpg`;
         if (mapImgUrl != this.currentAvatarUrl) {
             this.logger.debug('Updating user avatar', mapImgUrl);
             try {
