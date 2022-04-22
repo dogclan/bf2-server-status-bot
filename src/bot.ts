@@ -6,6 +6,25 @@ import logger from './logger';
 import {ensureStringMaxLength} from './utility';
 
 export type BotTreatment = 'ignore' | 'separate' | 'subtract-slots' | 'include'
+type BflistServer = {
+    name: string
+    mapName: string
+    numPlayers: number
+    maxPlayers: number
+    players: BflistPlayer[]
+}
+type BflistPlayer = {
+    pid: number
+    name: string
+    tag: string
+    score: number
+    kills: number
+    deaths: number
+    ping: number
+    team: number
+    teamLabel: string
+    aibot: boolean
+}
 
 class StatusBot {
     private token: string;
@@ -55,12 +74,12 @@ class StatusBot {
     private async updateServerStatus(): Promise<void> {
         this.logger.debug('Fetching server status from bflist');
         const resp = await axios.get(`https://api.bflist.io/bf2/v1/servers/${this.serverIp}:${this.serverPort}`);
-        const server = resp.data;
+        const server: BflistServer = resp.data;
         const { name, mapName, numPlayers, maxPlayers } = server;
 
         this.logger.debug('Filtering out bots to determine player count');
         // Only count players who: are not flagged as a bot and have a valid ping, score, kill total of death total
-        const playerFilter = (player: any) => !player.aibot && (player.ping > 0 || player.score != 0 || player.kills != 0 || player.deaths != 0);
+        const playerFilter = (player: BflistPlayer) => !player.aibot && (player.ping > 0 || player.score != 0 || player.kills != 0 || player.deaths != 0);
         const players: number = server?.players?.filter(playerFilter)?.length;
         const bots: number = server?.players?.length - players;
 
@@ -109,7 +128,7 @@ class StatusBot {
             this.logger.debug('Username matches server name, no update required');
         }
         
-        const mapImgSlug = 'map_' + String(mapName).toLowerCase().replace(/ /g, '_');
+        const mapImgSlug = 'map_' + mapName.toLowerCase().replace(/ /g, '_');
         const mapImgUrl = `https://www.bf2hub.com/home/images/favorite/${mapImgSlug}.jpg`;
         if (mapImgUrl != this.currentAvatarUrl) {
             this.logger.debug('Updating user avatar', mapImgUrl);
