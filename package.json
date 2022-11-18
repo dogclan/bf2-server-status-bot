@@ -32,7 +32,7 @@
   },
   "homepage": "https://github.com/cetteup/bf2-server-status-bot#readme",
   "devDependencies": {
-    "@tsconfig/node14": "1.0.1",
+    "@tsconfig/node14": "1.0.3",
     "@tsconfig/recommended": "1.0.1",
     "@types/node-cron": "3.0.0",
     "@typescript-eslint/eslint-plugin": "5.5.0",
