@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { Client, Intents } from 'discord.js';
+import { ActivityType, Client, GatewayIntentBits } from 'discord.js';
 import cron from 'node-cron';
 import { Logger } from 'tslog';
 import logger from './logger';
-import {ensureStringMaxLength} from './utility';
+import { ensureStringMaxLength } from './utility';
 
 export type BotTreatment = 'ignore' | 'separate' | 'subtract-slots' | 'include'
 type BflistServer = {
@@ -47,7 +47,7 @@ class StatusBot {
         this.updateUsername = updateUsername;
 
         this.logger = logger.getChildLogger({ name: 'BotLogger'});
-        this.client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+        this.client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
         this.client.once('ready', () => {
             this.logger.info('Client is ready, starting update task');
@@ -103,7 +103,7 @@ class StatusBot {
         if (activityName != this.currentActivityName) {
             this.logger.debug('Updating user activity', activityName);
             try {
-                this.client.user?.setActivity(activityName, { type: 'PLAYING' });
+                this.client.user?.setActivity(activityName, { type: ActivityType.Playing });
                 this.currentActivityName = activityName;
             }
             catch (e: any) {
