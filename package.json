@@ -34,7 +34,7 @@
   "devDependencies": {
     "@tsconfig/node14": "1.0.3",
     "@tsconfig/recommended": "1.0.1",
-    "@types/node-cron": "3.0.0",
+    "@types/node-cron": "3.0.6",
     "@typescript-eslint/eslint-plugin": "5.5.0",
     "@typescript-eslint/parser": "5.5.0",
     "eslint": "8.27.0",
@@ -43,7 +43,7 @@
   "dependencies": {
     "axios": "0.24.0",
     "discord.js": "13.3.1",
-    "node-cron": "3.0.0",
+    "node-cron": "3.0.2",
     "tslog": "3.3.4"
   }
 }
