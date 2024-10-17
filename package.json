@@ -35,8 +35,8 @@
     "@tsconfig/node14": "1.0.3",
     "@tsconfig/recommended": "1.0.2",
     "@types/node-cron": "3.0.7",
-    "@typescript-eslint/eslint-plugin": "5.58.0",
-    "@typescript-eslint/parser": "5.58.0",
+    "@typescript-eslint/eslint-plugin": "8.10.0",
+    "@typescript-eslint/parser": "8.10.0",
     "eslint": "8.39.0",
     "typescript": "5.0.4"
   },
