@@ -8,6 +8,6 @@ RUN npm install
 
 ADD . /usr/src/app
 
-RUN npm run build-ts
+RUN npm run build
 
 CMD ["node", "dist/bin/bot.js"]
