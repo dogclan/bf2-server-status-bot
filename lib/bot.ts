@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { ActivityType, Client, GatewayIntentBits } from 'discord.js';
-import cron from 'node-cron';
+import * as cron from 'node-cron';
 import { Logger } from 'tslog';
 import logger from './logger';
 import { ensureStringMaxLength } from './utility';
@@ -49,12 +49,7 @@ class StatusBot {
         this.logger = logger.getChildLogger({ name: 'BotLogger'});
         this.client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
-        this.client.once('ready', () => {
-            this.logger.info('Client is ready, starting update task');
-            this.updateTask.start();
-        });
-
-        this.updateTask = cron.schedule('*/2 * * * *', async () => {
+        this.updateTask = cron.createTask('*/2 * * * *', async () => {
             this.logger.info('Updating game server status');
             try {
                 await this.updateServerStatus();
@@ -63,12 +58,15 @@ class StatusBot {
             catch(e: any) {
                 this.logger.error('Failed to update game server status', e.message);
             }
-        }, {
-            scheduled: false
         });
     }
 
     public async run(): Promise<void> {
+        this.client.once('ready', () => {
+            this.logger.info('Client is ready, starting update task');
+            this.updateTask.start();
+        });
+
         logger.info('Logging into Discord using token');
         await this.client.login(this.config.token);
     }
