@@ -54,9 +54,6 @@ class StatusBot {
             this.updateTask.start();
         });
 
-        logger.info('Logging into Discord using token');
-        this.client.login(this.token);
-
         this.updateTask = cron.schedule('*/2 * * * *', async () => {
             this.logger.info('Updating game server status');
             try {
@@ -69,6 +66,11 @@ class StatusBot {
         }, {
             scheduled: false
         });
+    }
+
+    public async run(): Promise<void> {
+        logger.info('Logging into Discord using token');
+        await this.client.login(this.token);
     }
 
     private async updateServerStatus(): Promise<void> {

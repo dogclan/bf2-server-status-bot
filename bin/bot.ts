@@ -3,4 +3,17 @@ import Config from '../lib/config';
 import logger from '../lib/logger';
 
 logger.info('Starting status bot');
-const bot = new StatusBot(Config.TOKEN, Config.SERVER_IP, Config.SERVER_PORT, Config.BOT_TREATMENT as BotTreatment, Config.UPDATE_USERNAME);
+const bot = new StatusBot(
+    Config.TOKEN,
+    Config.SERVER_IP,
+    Config.SERVER_PORT,
+    Config.BOT_TREATMENT as BotTreatment,
+    Config.UPDATE_USERNAME
+);
+bot.run()
+    .catch((error) => {
+        if (error instanceof Error) {
+            error = error.message;
+        }
+        logger.fatal(error);
+    });
