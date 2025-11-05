@@ -2,16 +2,15 @@
   "name": "bf2-server-status-bot",
   "version": "1.0.0",
   "description": "Discord bot to show number of currently active players on a Battlefield 2 server",
-  "main": "dist/index.js",
   "private": true,
   "engines": {
     "node": "18.20.8"
   },
   "scripts": {
     "build-ts": "tsc -b",
-    "start": "node dist/index.js",
+    "start": "node dist/bin/bot.js",
     "watch-ts": "tsc -w",
-    "lint": "npx eslint \"src/**\" --fix"
+    "lint": "npx eslint \"bin/**\" \"lib/**\" --fix"
   },
   "repository": {
     "type": "git",

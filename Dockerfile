@@ -10,4 +10,4 @@ ADD . /usr/src/app
 
 RUN npm run build-ts
 
-CMD ["node", "dist/index.js"]
+CMD ["node", "dist/bin/bot.js"]
