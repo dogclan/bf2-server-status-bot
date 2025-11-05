@@ -5,7 +5,15 @@ import { Logger } from 'tslog';
 import logger from './logger';
 import { ensureStringMaxLength } from './utility';
 
+export type Config = {
+    token: string
+    serverIp: string
+    serverPort: string
+    botTreatment: BotTreatment
+    updateUsername: boolean
+}
 export type BotTreatment = 'ignore' | 'separate' | 'subtract-slots' | 'include'
+
 type BflistServer = {
     name: string
     mapName: string
@@ -27,11 +35,7 @@ type BflistPlayer = {
 }
 
 class StatusBot {
-    private token: string;
-    private serverIp: string;
-    private serverPort: string;
-    private botTreatment: BotTreatment;
-    private updateUsername: boolean;
+    private readonly config: Config;
 
     private client: Client;
     private updateTask: cron.ScheduledTask;
@@ -39,12 +43,8 @@ class StatusBot {
     private currentActivityName = '';
     private currentAvatarUrl = '';
 
-    constructor(token: string, serverIp: string, serverPort: string, botTreatment: BotTreatment = 'ignore', updateUsername = false) {
-        this.token = token;
-        this.serverIp = serverIp;
-        this.serverPort = serverPort;
-        this.botTreatment = botTreatment;
-        this.updateUsername = updateUsername;
+    constructor(config: Config) {
+        this.config = config;
 
         this.logger = logger.getChildLogger({ name: 'BotLogger'});
         this.client = new Client({ intents: [GatewayIntentBits.Guilds] });
@@ -70,12 +70,12 @@ class StatusBot {
 
     public async run(): Promise<void> {
         logger.info('Logging into Discord using token');
-        await this.client.login(this.token);
+        await this.client.login(this.config.token);
     }
 
     private async updateServerStatus(): Promise<void> {
         this.logger.debug('Fetching server status from bflist');
-        const resp = await axios.get(`https://api.bflist.io/bf2/v1/servers/${this.serverIp}:${this.serverPort}`);
+        const resp = await axios.get(`https://api.bflist.io/bf2/v1/servers/${this.config.serverIp}:${this.config.serverPort}`);
         const server: BflistServer = resp.data;
         const { name, mapName, numPlayers, maxPlayers } = server;
 
@@ -86,7 +86,7 @@ class StatusBot {
         const bots: number = server?.players?.length - players;
 
         let playerIndicator: string;
-        switch (this.botTreatment) {
+        switch (this.config.botTreatment) {
             case 'ignore':
                 playerIndicator = `${players}/${maxPlayers}`;
                 break;
@@ -117,7 +117,7 @@ class StatusBot {
         }
 
         const username = ensureStringMaxLength(name, 32);
-        if (username != this.client.user?.username && this.updateUsername) {
+        if (username != this.client.user?.username && this.config.updateUsername) {
             this.logger.debug('Updating username to match server name');
             try {
                 await this.client.user?.setUsername(username);
