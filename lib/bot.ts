@@ -62,7 +62,7 @@ class StatusBot {
     }
 
     public async run(): Promise<void> {
-        this.client.once('ready', () => {
+        this.client.once('clientReady', () => {
             this.logger.info('Client is ready, starting update task');
             this.updateTask.start();
         });
