@@ -31,7 +31,7 @@
   },
   "homepage": "https://github.com/dogclan/bf2-server-status-bot#readme",
   "devDependencies": {
-    "@tsconfig/node14": "1.0.3",
+    "@tsconfig/node14": "14.1.5",
     "@tsconfig/recommended": "1.0.11",
     "@types/node-cron": "3.0.11",
     "@typescript-eslint/eslint-plugin": "8.46.3",
