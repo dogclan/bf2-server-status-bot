@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cetteup/bf2-server-status-bot.git"
+    "url": "git+https://github.com/dogclan/bf2-server-status-bot.git"
   },
   "keywords": [
     "battlefield",
@@ -27,9 +27,9 @@
   "author": "cetteup",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cetteup/bf2-server-status-bot/issues"
+    "url": "https://github.com/dogclan/bf2-server-status-bot/issues"
   },
-  "homepage": "https://github.com/cetteup/bf2-server-status-bot#readme",
+  "homepage": "https://github.com/dogclan/bf2-server-status-bot#readme",
   "devDependencies": {
     "@tsconfig/node14": "1.0.3",
     "@tsconfig/recommended": "1.0.2",
