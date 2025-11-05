@@ -55,8 +55,8 @@ class StatusBot {
                 await this.updateServerStatus();
                 this.logger.debug('Game server status update complete');
             }
-            catch(e: any) {
-                this.logger.error('Failed to update game server status', e.message);
+            catch(e) {
+                this.logger.error('Failed to update game server status', e instanceof Error ? e.message : e);
             }
         });
     }
@@ -106,8 +106,8 @@ class StatusBot {
                 this.client.user?.setActivity(activityName, { type: ActivityType.Playing });
                 this.currentActivityName = activityName;
             }
-            catch (e: any) {
-                this.logger.error('Failed to update user activity', e.message);
+            catch (e) {
+                this.logger.error('Failed to update user activity', e instanceof Error ? e.message : e);
             }
         }
         else {
@@ -120,8 +120,8 @@ class StatusBot {
             try {
                 await this.client.user?.setUsername(username);
             }
-            catch (e: any) {
-                this.logger.error('Failed to update username', e.message);
+            catch (e) {
+                this.logger.error('Failed to update username', e instanceof Error ? e.message : e);
             }
         }
         else {
@@ -136,8 +136,8 @@ class StatusBot {
                 await this.client.user?.setAvatar(mapImgUrl);
                 this.currentAvatarUrl = mapImgUrl;
             }
-            catch (e: any) {
-                this.logger.error('Failed to update user avatar', e.message);
+            catch (e) {
+                this.logger.error('Failed to update user avatar', e instanceof Error ? e.message : e);
             }
         }
     }
