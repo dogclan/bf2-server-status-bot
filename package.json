@@ -7,9 +7,9 @@
     "node": "24.11.0"
   },
   "scripts": {
-    "build-ts": "tsc -b",
+    "build": "tsc -b",
     "start": "node dist/bin/bot.js",
-    "watch-ts": "tsc -w",
+    "watch": "tsc -w",
     "lint": "npx eslint \"bin/**\" \"lib/**\" --fix"
   },
   "repository": {
