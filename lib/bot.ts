@@ -73,7 +73,7 @@ class StatusBot {
 
     private async updateServerStatus(): Promise<void> {
         this.logger.debug('Fetching server status from bflist');
-        const resp = await axios.get(`https://api.bflist.io/bf2/v1/servers/${this.config.serverIp}:${this.config.serverPort}`);
+        const resp = await axios.get(`https://api.bflist.io/v2/bf2/servers/${this.config.serverIp}:${this.config.serverPort}`);
         const server: BflistServer = resp.data;
         const { name, mapName, numPlayers, maxPlayers } = server;
 
