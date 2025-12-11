@@ -4,7 +4,7 @@
   "description": "Discord bot to show number of currently active players on a Battlefield 2 server",
   "private": true,
   "engines": {
-    "node": "24.11.1"
+    "node": "24.12.0"
   },
   "scripts": {
     "build": "tsc -b",
